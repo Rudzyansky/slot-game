@@ -39,6 +39,7 @@ class MainViewModel(private val context: Context) : ViewModel() {
 
         balance += profit
         if (balance == 0) balance = 1000
+        if (bet > balance) bet = balance
     }
 
     private fun profitCalc(matches: Int) =
