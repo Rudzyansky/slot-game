@@ -20,6 +20,7 @@ import androidx.lifecycle.SavedStateViewModelFactory
 import ru.ft.slot.R
 import ru.ft.slot.databinding.FragmentMainBinding
 import java.text.DecimalFormat
+import kotlin.math.absoluteValue
 
 class MainFragment : Fragment() {
 
@@ -75,8 +76,9 @@ class MainFragment : Fragment() {
             ImageView(context).apply {
                 setImageResource(it)
                 layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.WRAP_CONTENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT
+                    120, 120
+//                    FrameLayout.LayoutParams.WRAP_CONTENT,
+//                    FrameLayout.LayoutParams.WRAP_CONTENT
                 )
             }
         }
@@ -93,17 +95,24 @@ class MainFragment : Fragment() {
                 imageViews.forEachIndexed { index, imageView ->
                     //if (currentIndex + index)
                     //
+
+                    var resultIndex = (index - currentIndex)
+                    if (resultIndex >= 5) resultIndex -= 10
+                    if (resultIndex <= -5) resultIndex += 10
+
                     imageView.translationY =
-                        imageView.height * index.toFloat() + it.animatedValue as Float
+                        imageView.height * resultIndex.toFloat() + it.animatedValue as Float
                     Log.e("AAA", imageView.height.toString())
                 }
             }
             addListener(onRepeat = {
-                currentIndex = (currentIndex + 1) % imageViews.size
+                currentIndex -= 1
+                if (currentIndex < 0) currentIndex += imageViews.size
+//                currentIndex = ((currentIndex - 1) % imageViews.size).absoluteValue
             })
             interpolator = LinearInterpolator()
             repeatMode = ValueAnimator.RESTART
-            repeatCount = 8//ValueAnimator.INFINITE
+            repeatCount = 0//ValueAnimator.INFINITE
             start()
         }
     }
