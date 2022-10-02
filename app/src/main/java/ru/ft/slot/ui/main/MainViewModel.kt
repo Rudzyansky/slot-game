@@ -1,9 +1,10 @@
 package ru.ft.slot.ui.main
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val context: Context) : ViewModel() {
     val betLiveData: MutableLiveData<Int> = MutableLiveData(7)
     val balanceLiveData: MutableLiveData<Int> = MutableLiveData(1000)
 
@@ -18,5 +19,22 @@ class MainViewModel : ViewModel() {
         set(value) {
             balanceLiveData.value = value
         }
+
+
+    // План:
+
+    // По нажатию на крутить генерим рандомные сдвиги от size до 3*size
+    // и время CONST_TIME + 0..0.3 * CONST_TIME
+    // для каждого столбца
+
+    // в фрагменте крутим колесо
+
+
+    // кокда все докрутили
+    // передаем все идшки в viewModel
+
+
+
+
 
 }

@@ -1,11 +1,9 @@
 package ru.ft.slot.ui.main
 
-import android.animation.Animator
 import android.animation.ValueAnimator
-import androidx.lifecycle.ViewModelProvider
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +12,16 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.animation.addListener
-import androidx.lifecycle.SavedStateViewModelFactory
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import ru.ft.slot.R
 import ru.ft.slot.databinding.FragmentMainBinding
+import ru.ft.slot.ui.spinning_wheel.SpinningWheel
 import java.text.DecimalFormat
-import kotlin.math.absoluteValue
 
 class MainFragment : Fragment() {
 
@@ -29,14 +30,18 @@ class MainFragment : Fragment() {
 
     private val decimalFormat = DecimalFormat("###,###")
 
-    private lateinit var animeIn: Animation
-    private lateinit var animeOut: Animation
+    private val viewModel by viewModels<MainViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return MainViewModel(requireContext().applicationContext) as T
+            }
+        }
+    }
 
-    private lateinit var viewModel: MainViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+    private val items by lazy {
+        ITEMS.mapIndexed { index, it ->
+            MyItem(index, AppCompatResources.getDrawable(requireContext(), it)!!)
+        }
     }
 
     override fun onCreateView(
@@ -53,15 +58,18 @@ class MainFragment : Fragment() {
         binding.spinBtn.setOnClickListener {
             viewModel.balance -= viewModel.bet
         }
-//todo init viewas
-        // add to col1
 
+        binding.col1.setState(items, 0)
 
-        // on view created: animation listeners
-        col1()
+        binding.col2.setState(items, 1)
+        binding.col2.spin(8)
 
-        animeIn = AnimationUtils.loadAnimation(context, R.anim.anime_in)
-        animeOut = AnimationUtils.loadAnimation(context, R.anim.anime_out)
+        binding.col3.setState(items, 2)
+
+        binding.col4.setState(items, 3)
+        binding.col4.spin(-30)
+
+        binding.col5.setState(items, 4)
 
         return binding.root
     }
@@ -69,52 +77,6 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    fun col1() {
-        val imageViews = ITEMS.map {
-            ImageView(context).apply {
-                setImageResource(it)
-                layoutParams = FrameLayout.LayoutParams(
-                    120, 120
-//                    FrameLayout.LayoutParams.WRAP_CONTENT,
-//                    FrameLayout.LayoutParams.WRAP_CONTENT
-                )
-            }
-        }
-        val column1 = binding.col1
-        imageViews.forEach { column1.addView(it) }
-
-        column1.invalidate()
-        var currentIndex = 0
-        val height = imageViews[0].height
-        val halfHeight = height / 2f
-        ValueAnimator.ofFloat(-120f, 0f).apply {
-            duration = 2000
-            addUpdateListener {
-                imageViews.forEachIndexed { index, imageView ->
-                    //if (currentIndex + index)
-                    //
-
-                    var resultIndex = (index - currentIndex)
-                    if (resultIndex >= 5) resultIndex -= 10
-                    if (resultIndex <= -5) resultIndex += 10
-
-                    imageView.translationY =
-                        imageView.height * resultIndex.toFloat() + it.animatedValue as Float
-                    Log.e("AAA", imageView.height.toString())
-                }
-            }
-            addListener(onRepeat = {
-                currentIndex -= 1
-                if (currentIndex < 0) currentIndex += imageViews.size
-//                currentIndex = ((currentIndex - 1) % imageViews.size).absoluteValue
-            })
-            interpolator = LinearInterpolator()
-            repeatMode = ValueAnimator.RESTART
-            repeatCount = 0//ValueAnimator.INFINITE
-            start()
-        }
     }
 
     companion object {
@@ -132,4 +94,6 @@ class MainFragment : Fragment() {
             R.drawable.item9
         )
     }
+
+    data class MyItem(val id: Int, override val drawable: Drawable) : SpinningWheel.Item
 }
