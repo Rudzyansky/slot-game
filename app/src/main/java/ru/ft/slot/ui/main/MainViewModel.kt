@@ -19,7 +19,8 @@ class MainViewModel(private val context: Context) : ViewModel() {
     var bet
         get() = betLiveData.value!!
         set(value) {
-            if (value > 0) betLiveData.value = value
+            if (value < 1 || value > balance) return
+            betLiveData.value = value
         }
 
     var balance
@@ -37,6 +38,7 @@ class MainViewModel(private val context: Context) : ViewModel() {
         if (profit == 0) return
 
         balance += profit
+        if (balance == 0) balance = 1000
     }
 
     private fun profitCalc(matches: Int) =
