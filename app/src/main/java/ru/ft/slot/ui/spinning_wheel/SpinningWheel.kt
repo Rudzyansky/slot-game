@@ -103,11 +103,28 @@ class SpinningWheel @JvmOverloads constructor(
             }
     }
 
+    fun getMaster(): Item {
+        val items = items ?: error("fuck this")
+        return items[currentIndex]
+    }
+
+    fun getUp(): Item {
+        val items = items ?: error("fuck this")
+        return items[(currentIndex + 1) % items.size]
+    }
+
+    fun getDown(): Item {
+        val items = items ?: error("fuck this")
+        var currentTempIndex = (currentIndex - 1)
+        if (currentTempIndex < 0) currentTempIndex += items.size
+        return items[currentTempIndex]
+    }
+
     interface Item {
         val drawable: Drawable
     }
 
     companion object {
-        private const val SPACING_PX = 10
+        private const val SPACING_PX = 0
     }
 }
