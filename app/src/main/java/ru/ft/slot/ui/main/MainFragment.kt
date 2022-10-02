@@ -48,7 +48,7 @@ class MainFragment : Fragment() {
     private var spinEndCount = 0
     private var isSpinning = false
 
-    private fun randomItems() = (items).shuffled()
+    private fun randomItems() = (items + items).shuffled() // todo вообще барабаны надо хардкодить
 //    private fun randomIndex() = Random.nextInt(items.size, 3 * items.size) % items.size
     private fun randomCount() = -Random.nextInt(160, 640)
     private fun randomDuration() = CONST_TIME + Random.nextLong(0, (0.3f * CONST_TIME).toLong())
@@ -78,11 +78,11 @@ class MainFragment : Fragment() {
             binding.col5.spin(randomCount(), randomDuration()) { spinEnd() }
         }
 
-        binding.col1.setState(randomItems(), 0)
-        binding.col2.setState(randomItems(), 0)
-        binding.col3.setState(randomItems(), 0)
-        binding.col4.setState(randomItems(), 0)
-        binding.col5.setState(randomItems(), 0)
+        binding.col1.setState(randomItems(), 0)//items, randomIndex())
+        binding.col2.setState(randomItems(), 0)//items, randomIndex())
+        binding.col3.setState(randomItems(), 0)//items, randomIndex())
+        binding.col4.setState(randomItems(), 0)//items, randomIndex())
+        binding.col5.setState(randomItems(), 0)//items, randomIndex())
 
         return binding.root
     }
