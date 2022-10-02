@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.MainFragment">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:src="@drawable/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/moneyBg"
+        android:layout_width="199dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@null"
+        android:src="@drawable/additional_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/coinImg"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="2dp"
+        android:contentDescription="@null"
+        android:src="@drawable/coin"
+        app:layout_constraintBottom_toBottomOf="@id/moneyBg"
+        app:layout_constraintStart_toStartOf="@id/moneyBg"
+        app:layout_constraintTop_toTopOf="@id/moneyBg" />
+
+    <TextView
+        android:id="@+id/money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="@id/moneyBg"
+        app:layout_constraintEnd_toEndOf="@id/moneyBg"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toEndOf="@+id/coinImg"
+        app:layout_constraintTop_toTopOf="@id/moneyBg" />
+
+    <ImageView
+        android:id="@+id/gameBg"
+        android:layout_width="728dp"
+        android:layout_height="323dp"
+        android:contentDescription="@null"
+        android:src="@drawable/area_bg"
+        app:layout_constraintBottom_toTopOf="@+id/betBg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moneyBg" />
+
+    <LinearLayout
+        android:id="@+id/game"
+        android:layout_width="396dp"
+        android:layout_height="232dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/gameBg"
+        app:layout_constraintEnd_toEndOf="@+id/gameBg"
+        app:layout_constraintStart_toStartOf="@+id/gameBg"
+        app:layout_constraintTop_toTopOf="@+id/gameBg"
+        app:layout_constraintVertical_bias="0.55">
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/betBg"
+        android:layout_width="264dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/additional_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/betText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="@id/betBg"
+        app:layout_constraintStart_toStartOf="@+id/betBg"
+        app:layout_constraintTop_toTopOf="@+id/betBg" />
+
+    <ImageView
+        android:id="@+id/plusImg"
+        android:layout_width="44dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginBottom="2dp"
+        android:contentDescription="@null"
+        android:src="@drawable/bet_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/betBg"
+        app:layout_constraintStart_toStartOf="@+id/betBg"
+        app:layout_constraintTop_toTopOf="@+id/betBg" />
+
+    <Button
+        android:id="@+id/plusBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:text="@string/plusBtnText"
+        android:textColor="@color/text"
+        app:layout_constraintBottom_toBottomOf="@+id/plusImg"
+        app:layout_constraintEnd_toEndOf="@+id/plusImg"
+        app:layout_constraintStart_toStartOf="@+id/plusImg"
+        app:layout_constraintTop_toTopOf="@+id/plusImg"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/bet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/minusBtn"
+        app:layout_constraintStart_toEndOf="@+id/plusBtn"
+        app:layout_constraintTop_toTopOf="@+id/betBg" />
+
+    <ImageView
+        android:id="@+id/minusImg"
+        android:layout_width="44dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="2dp"
+        android:contentDescription="@null"
+        android:src="@drawable/bet_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/betBg"
+        app:layout_constraintEnd_toEndOf="@+id/betBg"
+        app:layout_constraintTop_toTopOf="@+id/betBg" />
+
+    <Button
+        android:id="@+id/minusBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00FFFFFF"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:text="@string/minusBtnText"
+        android:textColor="@color/text"
+        app:layout_constraintBottom_toBottomOf="@+id/minusImg"
+        app:layout_constraintEnd_toEndOf="@+id/minusImg"
+        app:layout_constraintStart_toStartOf="@+id/minusImg"
+        app:layout_constraintTop_toTopOf="@+id/minusImg"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/spinImg"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:contentDescription="@null"
+        android:src="@drawable/spin_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/spinBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:background="#00FFFFFF"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:text="@string/spinBtnText"
+        android:textColor="@color/text"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinImg"
+        app:layout_constraintEnd_toEndOf="@+id/spinImg"
+        app:layout_constraintStart_toStartOf="@+id/spinImg"
+        app:layout_constraintTop_toTopOf="@+id/spinImg" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
