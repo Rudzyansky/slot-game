@@ -50,7 +50,7 @@ class MainFragment : Fragment() {
 
     //    private fun randomItems() = // todo implement
     private fun randomIndex() = Random.nextInt(items.size, 3 * items.size) % items.size
-    private fun randomCount() = -Random.nextInt(16, 64)
+    private fun randomCount() = -Random.nextInt(160, 320)
     private fun randomDuration() = CONST_TIME + Random.nextLong(0, (0.3f * CONST_TIME).toLong())
 
     override fun onCreateView(

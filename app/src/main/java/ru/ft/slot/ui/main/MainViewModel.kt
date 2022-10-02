@@ -1,12 +1,20 @@
 package ru.ft.slot.ui.main
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.ft.slot.R
 
 class MainViewModel(private val context: Context) : ViewModel() {
-    val betLiveData: MutableLiveData<Int> = MutableLiveData(7)
-    val balanceLiveData: MutableLiveData<Int> = MutableLiveData(1000)
+    private val prefs: SharedPreferences =
+        context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
+    val betLiveData: MutableLiveData<Int> = MutableLiveData(10)
+    val balanceLiveData: MutableLiveData<Int> = MutableLiveData(prefs.getInt("Balance", 1000))
+
+    init {
+        balanceLiveData.observeForever { prefs.edit().putInt("Balance", it).apply() }
+    }
 
     var bet
         get() = betLiveData.value!!
