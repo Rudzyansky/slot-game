@@ -46,8 +46,9 @@ class MainFragment : Fragment() {
     }
 
     private var spinEndCount = 0
+    private var isSpinning = false
 
-//    private fun randomItems() = // todo implement
+    //    private fun randomItems() = // todo implement
     private fun randomIndex() = Random.nextInt(items.size, 3 * items.size) % items.size
     private fun randomCount() = -Random.nextInt(16, 64)
     private fun randomDuration() = CONST_TIME + Random.nextLong(0, (0.3f * CONST_TIME).toLong())
@@ -61,9 +62,12 @@ class MainFragment : Fragment() {
         viewModel.balanceLiveData.observe(viewLifecycleOwner) {
             binding.money.text = decimalFormat.format(it)
         }
-        binding.plusBtn.setOnClickListener { viewModel.bet++ }
-        binding.minusBtn.setOnClickListener { viewModel.bet-- }
+        binding.plusBtn.setOnClickListener { if (!isSpinning) viewModel.bet++ }
+        binding.minusBtn.setOnClickListener { if (!isSpinning) viewModel.bet-- }
         binding.spinBtn.setOnClickListener {
+            if (isSpinning) return@setOnClickListener
+            isSpinning = true
+
             viewModel.balance -= viewModel.bet
 
             spinEndCount = 0
@@ -84,8 +88,35 @@ class MainFragment : Fragment() {
     }
 
     private fun spinEnd() {
-        spinEndCount++
-//        if (spinEndCount == 5) viewModel.
+        if (++spinEndCount != 5) return
+
+        val lineUp = listOf(
+            (binding.col1.getUp() as MyItem).id,
+            (binding.col2.getUp() as MyItem).id,
+            (binding.col3.getUp() as MyItem).id,
+            (binding.col4.getUp() as MyItem).id,
+            (binding.col5.getUp() as MyItem).id
+        )
+
+        val lineMaster = listOf(
+            (binding.col1.getMaster() as MyItem).id,
+            (binding.col2.getMaster() as MyItem).id,
+            (binding.col3.getMaster() as MyItem).id,
+            (binding.col4.getMaster() as MyItem).id,
+            (binding.col5.getMaster() as MyItem).id
+        )
+
+        val lineDown = listOf(
+            (binding.col1.getDown() as MyItem).id,
+            (binding.col2.getDown() as MyItem).id,
+            (binding.col3.getDown() as MyItem).id,
+            (binding.col4.getDown() as MyItem).id,
+            (binding.col5.getDown() as MyItem).id
+        )
+
+        viewModel.calculate(lineUp, lineMaster, lineDown)
+
+        isSpinning = false
     }
 
     override fun onDestroyView() {

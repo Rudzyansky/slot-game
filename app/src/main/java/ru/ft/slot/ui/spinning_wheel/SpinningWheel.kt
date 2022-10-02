@@ -78,7 +78,7 @@ class SpinningWheel @JvmOverloads constructor(
         }
     }
 
-    fun spin(count: Int, duration: Long = 10_000L, onCompleteListener: (Item) -> Unit = {}) {
+    fun spin(count: Int, duration: Long = 10_000L, onCompleteListener: () -> Unit = {}) {
         val items = items ?: error("fuck this")
         animator?.cancel()
         animator = ValueAnimator
@@ -97,7 +97,7 @@ class SpinningWheel @JvmOverloads constructor(
                     invalidate()
                 }
 
-                addListener(onEnd = { onCompleteListener(items[currentIndex]) })
+                addListener(onEnd = { onCompleteListener() })
 
                 start()
             }
